@@ -1,53 +1,78 @@
-{{-- resources/views/admin/content/contact.blade.php --}}
 @extends('admin.layout')
 
-@section('title', 'Contact Content')
+@section('title', 'Contact & Social')
 
 @php
-    // مصفوفة السوشيال ميديا (Solid SVG & Valid PHP)
-    $socialIconPresets = [
-        ['code' => 'LN', 'label' => 'LinkedIn', 'bg' => '#0A66C2', 'svg' => '<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>'],
-        ['code' => 'GH', 'label' => 'GitHub', 'bg' => '#24292F', 'svg' => '<path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>'],
-        ['code' => 'X', 'label' => 'X / Twitter', 'bg' => '#111111', 'svg' => '<path d="M18.24 2.55h3.31l-7.23 8.26 8.5 11.23h-6.66l-5.21-6.81-5.97 6.81H1.67l7.73-8.83L1.25 2.55h6.82l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.08 4.45H5.12l11.96 15.62z"/>'],
-        ['code' => 'IG', 'label' => 'Instagram', 'bg' => '#E1306C', 'svg' => '<path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85c.15-3.27 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm7.84-11.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/>'],
-        ['code' => 'FB', 'label' => 'Facebook', 'bg' => '#1877F2', 'svg' => '<path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.03 11.47 5.66 13.79 5.66c1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 3h-2.33v6.8C18.56 20.87 22 16.84 22 12z"/>'],
-        ['code' => 'WA', 'label' => 'WhatsApp', 'bg' => '#25D366', 'svg' => '<path d="M12.03 2C6.5 2 2 6.5 2 12.04c0 1.77.46 3.49 1.33 5.01L2 22l5.09-1.33A9.97 9.97 0 0012.03 22c5.53 0 10.02-4.49 10.02-10.01S17.56 2 12.03 2zm5.34 14.37c-.22.63-1.3 1.2-1.78 1.25-.44.05-.98.1-1.57-.1-1.38-.47-3.03-1.63-4.22-3-1.2-1.38-2.02-2.8-2.12-4-.09-1.18.5-1.8.76-2.07.25-.26.55-.32.74-.32s.37 0 .52.02c.16.02.38-.06.59.45.22.52.71 1.73.77 1.86.06.13.1.28.02.43-.08.15-.12.24-.24.38-.11.13-.24.28-.33.38-.1.11-.22.22-.1.43.12.21.52.88 1.13 1.42.79.7 1.45.92 1.66 1.03.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.08 1.28.6 1.5.72.22.11.37.17.42.27.05.09.05.53-.17 1.16z"/>'],
+    /**
+     * Font Awesome icon classes for social platforms.
+     */
+    $socialIconMap = [
+        'facebook'  => 'fa-brands fa-facebook-f',
+        'instagram' => 'fa-brands fa-instagram',
+        'whatsapp'  => 'fa-brands fa-whatsapp',
+        'tiktok'    => 'fa-brands fa-tiktok',
+        'twitter_x' => 'fa-brands fa-x-twitter',
+        'linkedin'  => 'fa-brands fa-linkedin-in',
+        'youtube'   => 'fa-brands fa-youtube',
+        'snapchat'  => 'fa-brands fa-snapchat',
+        'telegram'  => 'fa-brands fa-telegram',
+        'pinterest' => 'fa-brands fa-pinterest-p',
+        'github'    => 'fa-brands fa-github',
+        'gitlab'    => 'fa-brands fa-gitlab',
+        'dribbble'  => 'fa-brands fa-dribbble',
+        'behance'   => 'fa-brands fa-behance',
+        'custom'    => 'fa-solid fa-link',
     ];
 
-    // مصفوفة أيقونات التواصل (Solid SVG & Valid PHP)
-    $contactIconPresets = [
-        ['code' => 'EM', 'label' => 'Email', 'bg' => '#3B82F6', 'svg' => '<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>'],
-        ['code' => 'PH', 'label' => 'Phone', 'bg' => '#10B981', 'svg' => '<path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>'],
-        ['code' => 'MP', 'label' => 'Map Pin', 'bg' => '#EF4444', 'svg' => '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>'],
-        ['code' => 'CL', 'label' => 'Clock', 'bg' => '#F59E0B', 'svg' => '<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>'],
-        ['code' => 'GL', 'label' => 'Globe', 'bg' => '#14B8A6', 'svg' => '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>'],
+    /**
+     * Font Awesome icon classes for contact items.
+     * Keep your existing contactIconOptions keys; just add icon class for each one.
+     */
+    $contactFaIconMap = [
+        'email'    => 'fa-solid fa-envelope',
+        'phone'    => 'fa-solid fa-phone',
+        'mobile'   => 'fa-solid fa-mobile-screen-button',
+        'whatsapp' => 'fa-brands fa-whatsapp',
+        'location' => 'fa-solid fa-location-dot',
+        'website'  => 'fa-solid fa-globe',
+        'hours'    => 'fa-regular fa-clock',
+        'fax'      => 'fa-solid fa-fax',
+        'custom'   => 'fa-solid fa-circle-question',
     ];
 @endphp
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+@endpush
 
 @section('body')
 <div class="page-header">
     <div>
-        <h1 class="font-display text-2xl font-bold">Contact Content</h1>
-        <p class="text-sm" style="color:var(--muted)">Edit contact headline, items, and social links.</p>
+        <h1 class="font-display text-2xl font-bold">Contact &amp; Social</h1>
+        <p class="text-sm mt-1" style="color:var(--muted)">Manage contact section text, contact info items, and social media links.</p>
     </div>
 </div>
 
-<div class="page-content">
-    @if(session('success'))
-        <div class="alert alert-success fade-in">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
+<div class="page-content" x-data="contactPage()">
 
-    <div class="card fade-in mb-4">
+    {{-- Contact Section Text --}}
+    <div class="card fade-in mb-6">
         <div class="card-header">
-            <h2 class="text-sm font-semibold">Main Contact Section</h2>
+            <div class="flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--accent)">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+                <h2 class="text-sm font-semibold">Section Content</h2>
+            </div>
+            <button type="button" @click="sectionOpen = !sectionOpen" class="btn btn-ghost btn-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" :style="sectionOpen ? 'transform:rotate(180deg)' : ''">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+                <span x-text="sectionOpen ? 'Collapse' : 'Expand'"></span>
+            </button>
         </div>
-        <div class="card-body">
+
+        <div x-show="sectionOpen" x-transition class="card-body">
             <form method="POST" action="{{ route('admin.content.contact.update') }}">
                 @csrf
                 @method('PUT')
@@ -55,61 +80,106 @@
                 <div class="form-grid">
                     <div class="field">
                         <label class="label">Badge EN</label>
-                        <input type="text" name="badge_en" class="input" value="{{ old('badge_en', $contact->badge_en ?? '') }}" required>
+                        <input type="text" name="badge_en" class="input" value="{{ old('badge_en', $contact->badge_en) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">Badge AR</label>
-                        <input type="text" name="badge_ar" class="input" value="{{ old('badge_ar', $contact->badge_ar ?? '') }}" required>
+                        <input type="text" name="badge_ar" class="input" value="{{ old('badge_ar', $contact->badge_ar) }}" required>
                     </div>
-
                     <div class="field">
                         <label class="label">Heading EN</label>
-                        <input type="text" name="heading_en" class="input" value="{{ old('heading_en', $contact->heading_en ?? '') }}" required>
+                        <input type="text" name="heading_en" class="input" value="{{ old('heading_en', $contact->heading_en) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">Heading AR</label>
-                        <input type="text" name="heading_ar" class="input" value="{{ old('heading_ar', $contact->heading_ar ?? '') }}" required>
+                        <input type="text" name="heading_ar" class="input" value="{{ old('heading_ar', $contact->heading_ar) }}" required>
                     </div>
-
-                    <div class="field md:col-span-2">
+                    <div class="field">
                         <label class="label">Description EN</label>
-                        <textarea name="desc_en" class="input" rows="4" required>{{ old('desc_en', $contact->desc_en ?? '') }}</textarea>
+                        <textarea name="desc_en" class="input" rows="3" required>{{ old('desc_en', $contact->desc_en) }}</textarea>
                     </div>
-                    <div class="field md:col-span-2">
+                    <div class="field">
                         <label class="label">Description AR</label>
-                        <textarea name="desc_ar" class="input" rows="4" required>{{ old('desc_ar', $contact->desc_ar ?? '') }}</textarea>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">CTA EN</label>
-                        <input type="text" name="cta_en" class="input" value="{{ old('cta_en', $contact->cta_en ?? '') }}" required>
+                        <textarea name="desc_ar" class="input" rows="3" required>{{ old('desc_ar', $contact->desc_ar) }}</textarea>
                     </div>
                     <div class="field">
-                        <label class="label">CTA AR</label>
-                        <input type="text" name="cta_ar" class="input" value="{{ old('cta_ar', $contact->cta_ar ?? '') }}" required>
+                        <label class="label">CTA Button EN</label>
+                        <input type="text" name="cta_en" class="input" value="{{ old('cta_en', $contact->cta_en) }}" required>
                     </div>
-
-                    <div class="field md:col-span-2">
-                        <label class="label">CTA Email</label>
-                        <input type="email" name="cta_email" class="input" value="{{ old('cta_email', $contact->cta_email ?? '') }}" required>
+                    <div class="field">
+                        <label class="label">CTA Button AR</label>
+                        <input type="text" name="cta_ar" class="input" value="{{ old('cta_ar', $contact->cta_ar) }}" required>
+                    </div>
+                    <div class="field" style="grid-column: 1/-1">
+                        <label class="label">CTA Email Address</label>
+                        <input type="email" name="cta_email" class="input" value="{{ old('cta_email', $contact->cta_email) }}" required>
                     </div>
                 </div>
 
-                <div class="mt-4">
-                    <button class="btn btn-primary">Save Contact Content</button>
-                </div>
+                <button class="btn btn-primary">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    Save Section
+                </button>
             </form>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+    <div class="grid gap-6" style="grid-template-columns: 1fr 1fr">
+
+        {{-- Contact Items --}}
         <div class="card fade-in">
             <div class="card-header">
-                <h2 class="text-sm font-semibold">Contact Items</h2>
+                <div class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--accent)">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v4M12 16h.01"/>
+                    </svg>
+                    <h2 class="text-sm font-semibold">Contact Info Items</h2>
+                </div>
+                <span class="badge badge-blue">{{ $items->count() }}</span>
             </div>
+
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.content.contact.item.store') }}" class="mb-5">
+                <form method="POST" action="{{ route('admin.content.contact.item.store') }}"
+                      x-data="contactItemForm()"
+                      class="mb-6 pb-6"
+                      style="border-bottom:1px solid var(--border)">
                     @csrf
+
+                    <div class="field">
+                        <label class="label">Icon Type</label>
+                        <select id="contactIconSelect" name="icon_key" class="input" x-model="selectedKey" @change="syncIcon()">
+                            @foreach($contactIconOptions as $key => $opt)
+                                <option value="{{ $key }}">{{ $opt['label'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-4 p-3 rounded-xl" style="background:var(--surface2);border:1px solid var(--border)">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white"
+                             :style="'background:' + currentColor">
+                            <i :class="currentIcon" class="text-lg"></i>
+                        </div>
+
+                        <div class="flex-1">
+                            <div class="text-xs font-semibold mb-1" style="color:var(--muted)">Preview</div>
+                            <div class="text-sm font-medium" x-text="currentLabel"></div>
+                        </div>
+
+                        <div>
+                            <label class="label mb-1">Color</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" name="color" x-model="currentColor"
+                                       class="w-8 h-8 rounded cursor-pointer" style="border:none;padding:1px;background:none">
+                                <input type="text" x-model="currentColor"
+                                       class="input text-xs font-mono" style="width:90px;padding:6px 10px">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-grid">
                         <div class="field">
@@ -128,133 +198,373 @@
                             <label class="label">Value AR</label>
                             <input type="text" name="value_ar" class="input" placeholder="hello@example.com" required>
                         </div>
-                        <div class="field md:col-span-2">
-                            <label class="label">Color</label>
-                            <input type="text" name="color" class="input" placeholder="#3b82f6" required>
-                        </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Icon SVG</label>
-                        <textarea id="contact_item_icon_svg" name="icon_path" class="input" rows="5" placeholder="<svg>...</svg>"></textarea>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Icon SVG 2</label>
-                        <textarea id="contact_item_icon_svg_2" name="icon_path2" class="input" rows="5" placeholder="<svg>...</svg>"></textarea>
-                    </div>
-
-                    <div class="field flex items-center gap-3">
-                        <input type="checkbox" name="icon_circle" value="1" id="icon_circle" class="h-4 w-4 rounded border-slate-600 bg-transparent">
-                        <label for="icon_circle" class="label mb-0 normal-case" style="text-transform:none;letter-spacing:0">Icon Circle</label>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Suggestions</label>
-                        <div class="icon-picker-grid flex flex-wrap gap-2">
-                            @foreach($contactIconPresets as $icon)
-                                <button type="button"
-                                        class="icon-opt flex items-center justify-center w-10 h-10 rounded text-white transition-all hover:scale-110"
-                                        style="background-color: {{ $icon['bg'] }}"
-                                        title="{{ $icon['label'] }}"
-                                        data-svg="{{ htmlspecialchars($icon['svg']) }}"
-                                        onclick="fillContactIcon(this.getAttribute('data-svg'))">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                        {!! $icon['svg'] !!}
-                                    </svg>
-                                </button>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <button class="btn btn-ghost">Add Item</button>
+                    <button type="submit" class="btn btn-ghost btn-sm">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Item
+                    </button>
                 </form>
 
-                <div class="space-y-3">
-                    @forelse($items ?? [] as $item)
-                        <div class="rounded-xl border p-4" style="border-color:var(--border);background:var(--surface2)">
-                            <div class="flex items-start justify-between gap-3">
-                                <div>
-                                    <div class="font-semibold">{{ $item->label_en }} / {{ $item->label_ar }}</div>
-                                    <div class="text-sm" style="color:var(--muted)">{{ $item->value_en }}</div>
-                                </div>
-                                <form method="POST" action="{{ route('admin.content.contact.item.destroy', $item) }}" onsubmit="return confirm('Delete this item?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="text-sm" style="color:var(--muted)">No contact items yet.</div>
-                    @endforelse
+               <div id="contactItemsList" class="space-y-2" x-data="{ editingId: null }">
+    @forelse($items as $item)
+        @php
+            $itemIconKey = $item->icon_key ?? 'custom';
+            $itemIconClass = $contactFaIconMap[$itemIconKey] ?? $contactFaIconMap['custom'];
+        @endphp
+
+        <div class="p-3 rounded-xl"
+             style="background:var(--surface2);border:1px solid var(--border)"
+             data-id="{{ $item->id }}" draggable="true">
+
+            <div class="flex items-center gap-3">
+                <div class="drag-handle flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="9" y1="6" x2="9" y2="6"/>
+                        <line x1="15" y1="6" x2="15" y2="6"/>
+                        <line x1="9" y1="12" x2="9" y2="12"/>
+                        <line x1="15" y1="12" x2="15" y2="12"/>
+                        <line x1="9" y1="18" x2="9" y2="18"/>
+                        <line x1="15" y1="18" x2="15" y2="18"/>
+                    </svg>
+                </div>
+
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-white"
+                     style="background:{{ $item->color ?? '#3b82f6' }}">
+                    <i class="{{ $itemIconClass }} text-xs"></i>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-semibold truncate">{{ $item->label_en }}</div>
+                    <div class="text-xs truncate" style="color:var(--muted)">{{ $item->value_en }}</div>
+                </div>
+
+                <div class="flex items-center gap-1 flex-shrink-0">
+                    <button type="button"
+                            class="btn btn-ghost btn-icon btn-sm"
+                            @click="editingId = editingId === {{ $item->id }} ? null : {{ $item->id }}">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                        </svg>
+                    </button>
+
+                    <span class="badge {{ $item->is_active ? 'badge-green' : 'badge-red' }} text-[10px]">
+                        {{ $item->is_active ? 'On' : 'Off' }}
+                    </span>
+
+                    <form method="POST" action="{{ route('admin.content.contact.item.destroy', $item) }}"
+                          onsubmit="return confirm('Delete this item?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-icon btn-sm" data-tip="Delete">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
 
-        <div class="card fade-in">
-            <div class="card-header">
-                <h2 class="text-sm font-semibold">Social Links</h2>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('admin.content.social.store') }}" class="mb-5">
+            <div x-show="editingId === {{ $item->id }}" x-cloak class="mt-4 pt-4" style="border-top:1px solid var(--border)">
+                <form method="POST" action="{{ route('admin.content.contact.item.update', $item) }}">
                     @csrf
+                    @method('PUT')
 
                     <div class="form-grid">
                         <div class="field">
-                            <label class="label">Label</label>
-                            <input type="text" name="label" class="input" placeholder="Instagram" required>
+                            <label class="label">Icon Type</label>
+                            <select name="icon_key" class="input" required>
+                                @foreach($contactIconOptions as $key => $opt)
+                                    <option value="{{ $key }}" @selected($item->icon_key === $key)>
+                                        {{ $opt['label'] }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
+
                         <div class="field">
-                            <label class="label">Href</label>
-                            <input type="url" name="href" class="input" placeholder="https://..." required>
+                            <label class="label">Color</label>
+                            <input type="color" name="color" class="input" value="{{ $item->color ?? '#3b82f6' }}">
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Label EN</label>
+                            <input type="text" name="label_en" class="input" value="{{ $item->label_en }}" required>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Label AR</label>
+                            <input type="text" name="label_ar" class="input" value="{{ $item->label_ar }}" required>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Value EN</label>
+                            <input type="text" name="value_en" class="input" value="{{ $item->value_en }}" required>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Value AR</label>
+                            <input type="text" name="value_ar" class="input" value="{{ $item->value_ar }}" required>
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">SVG Icon</label>
-                        <textarea id="social_icon_svg" name="icon_svg" class="input" rows="5" placeholder="<svg>...</svg>" required></textarea>
+                    <div class="flex items-center gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                        <button type="button" class="btn btn-ghost btn-sm" @click="editingId = null">Cancel</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    @empty
+        <div class="text-center py-8 text-sm" style="color:var(--muted)">
+            No contact items yet. Add one above.
+        </div>
+    @endforelse
+</div>
+            </div>
+        </div>
+
+        {{-- Social Links --}}
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--accent2)">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    <h2 class="text-sm font-semibold">Social Media Links</h2>
+                </div>
+                <span class="badge badge-blue">{{ $socials->count() }}</span>
+            </div>
+
+            <div class="card-body">
+                <form method="POST" action="{{ route('admin.content.social.store') }}"
+                      x-data="socialForm()"
+                      class="mb-6 pb-6"
+                      style="border-bottom:1px solid var(--border)">
+                    @csrf
 
                     <div class="field">
-                        <label class="label">Suggestions</label>
-                        <div class="icon-picker-grid flex flex-wrap gap-2">
-                            @foreach($socialIconPresets as $icon)
-                                <button type="button"
-                                        class="icon-opt flex items-center justify-center w-10 h-10 rounded text-white transition-all hover:scale-110"
-                                        style="background-color: {{ $icon['bg'] }}"
-                                        title="{{ $icon['label'] }}"
-                                        data-svg="{{ htmlspecialchars($icon['svg']) }}"
-                                        onclick="fillSocialIcon(this.getAttribute('data-svg'))">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                        {!! $icon['svg'] !!}
-                                    </svg>
-                                </button>
-                            @endforeach
+                        <label class="label">Platform</label>
+                        <select id="platformSelect" name="platform_key" class="input" x-model="selectedPlatform" @change="onPlatformChange()">
+                            <optgroup label="Social Media">
+                                @foreach($socialPlatforms as $key => $plat)
+                                    @if($plat['category'] === 'social')
+                                        <option value="{{ $key }}">{{ $plat['label'] }}</option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Developer">
+                                @foreach($socialPlatforms as $key => $plat)
+                                    @if($plat['category'] === 'dev')
+                                        <option value="{{ $key }}">{{ $plat['label'] }}</option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Design">
+                                @foreach($socialPlatforms as $key => $plat)
+                                    @if($plat['category'] === 'design')
+                                        <option value="{{ $key }}">{{ $plat['label'] }}</option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Other">
+                                @foreach($socialPlatforms as $key => $plat)
+                                    @if($plat['category'] === 'other')
+                                        <option value="{{ $key }}">{{ $plat['label'] }}</option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 rounded-xl mb-4" style="background:var(--surface2);border:1px solid var(--border)">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white"
+                             :style="'background:' + platformColor">
+                            <i :class="platformIcon" class="text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs" style="color:var(--muted)">Selected Platform</div>
+                            <div class="text-sm font-semibold" x-text="platformLabel"></div>
+                        </div>
+                        <div class="ml-auto" x-show="selectedPlatform === 'whatsapp'">
+                            <span class="badge badge-green text-[10px]">WhatsApp Mode</span>
                         </div>
                     </div>
 
-                    <button class="btn btn-ghost">Add Social Link</button>
+                    <div class="field" x-show="selectedPlatform === 'whatsapp'" x-transition>
+                        <label class="label">WhatsApp Number</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm" style="color:var(--muted)">+</span>
+                            <input type="text" name="whatsapp_number"
+                                   class="input pl-7 font-mono"
+                                   placeholder="31612345678"
+                                   :required="selectedPlatform === 'whatsapp'"
+                                   x-model="waNumber">
+                        </div>
+                        <div class="mt-1 text-xs" style="color:var(--muted)">
+                            Include country code, no spaces or dashes. e.g. <code class="font-mono">31612345678</code>
+                        </div>
+                        <div class="mt-2 text-xs font-mono px-3 py-2 rounded-lg"
+                             style="background:var(--bg);color:var(--accent)"
+                             x-show="waNumber"
+                             x-text="'https://wa.me/' + waNumber.replace(/\\D/g,'')"></div>
+                    </div>
+
+                    <div class="field" x-show="selectedPlatform !== 'whatsapp'" x-transition>
+                        <label class="label">URL</label>
+                        <input type="url" name="href"
+                               class="input"
+                               placeholder="https://..."
+                               :required="selectedPlatform !== 'whatsapp'">
+                    </div>
+
+                    <div class="flex items-center gap-3 mb-4 p-3 rounded-xl" style="background:var(--surface2);border:1px solid var(--border)">
+                        <div x-data="{ on: false }">
+                            <input type="hidden" name="is_floating" :value="on ? '1' : '0'">
+                            <button type="button" @click="on = !on" class="toggle" :class="on ? 'on' : ''"></button>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold">Floating Button</div>
+                            <div class="text-xs" style="color:var(--muted)">Show as floating action button on the site (ideal for WhatsApp)</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-ghost btn-sm">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Social Link
+                    </button>
                 </form>
 
-                <div class="space-y-3">
-                    @forelse($socials ?? [] as $social)
-                        <div class="rounded-xl border p-4" style="border-color:var(--border);background:var(--surface2)">
-                            <div class="flex items-center justify-between gap-3">
-                                <div>
-                                    <div class="font-semibold">{{ $social->label }}</div>
-                                    <div class="truncate text-sm" style="color:var(--muted);max-width:280px;">{{ $social->href }}</div>
-                                </div>
-                                <form method="POST" action="{{ route('admin.content.social.destroy', $social) }}" onsubmit="return confirm('Delete this social link?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="text-sm" style="color:var(--muted)">No social links yet.</div>
-                    @endforelse
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Link / Number</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($socials as $social)
+                                @php
+                                    $platformKey = strtolower($social->platform_key ?? 'custom');
+                                    $platformMeta = $socialPlatforms[$platformKey] ?? $socialPlatforms['custom'] ?? [];
+                                    $platformIconClass = $socialIconMap[$platformKey] ?? $socialIconMap['custom'];
+                                @endphp
+
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2.5">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-white"
+                                                 style="background:{{ $platformMeta['color'] ?? '#64748b' }}">
+                                                <i class="{{ $platformIconClass }} text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-semibold">{{ $social->label }}</div>
+                                                <div class="text-[10px] uppercase tracking-wide" style="color:var(--muted)">{{ $social->platform_key }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @if($social->platform_key === 'whatsapp' && $social->whatsapp_number)
+                                            <span class="font-mono text-xs" style="color:var(--success)">+{{ $social->whatsapp_number }}</span>
+                                        @elseif($social->href)
+                                            <a href="{{ $social->href }}" target="_blank"
+                                               class="text-xs truncate block max-w-[160px] hover:underline"
+                                               style="color:var(--accent)">
+                                                {{ $social->href }}
+                                            </a>
+                                        @else
+                                            <span style="color:var(--muted)">—</span>
+                                        @endif
+                                    </td>
+
+                                    <td class="text-center">
+                                        @if($social->is_floating)
+                                            <span class="badge badge-amber text-[10px]">
+                                                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                                </svg>
+                                                Floating
+                                            </span>
+                                        @else
+                                            <span class="badge badge-blue text-[10px]">Footer</span>
+                                        @endif
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span class="badge {{ $social->is_active ? 'badge-green' : 'badge-red' }} text-[10px]">
+                                            {{ $social->is_active ? 'Active' : 'Hidden' }}
+                                        </span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="flex items-center justify-center gap-1">
+                                            <form method="POST" action="{{ route('admin.content.social.update', $social) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="platform_key" value="{{ $social->platform_key }}">
+                                                <input type="hidden" name="href" value="{{ $social->href }}">
+                                                <input type="hidden" name="whatsapp_number" value="{{ $social->whatsapp_number }}">
+                                                <input type="hidden" name="is_floating" value="{{ $social->is_floating ? '1' : '0' }}">
+                                                <input type="hidden" name="is_active" value="{{ $social->is_active ? '0' : '1' }}">
+                                                <button type="submit" class="btn btn-ghost btn-icon btn-sm"
+                                                        data-tip="{{ $social->is_active ? 'Deactivate' : 'Activate' }}">
+                                                    @if($social->is_active)
+                                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                                                            <line x1="1" y1="1" x2="23" y2="23"/>
+                                                        </svg>
+                                                    @else
+                                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                            <circle cx="12" cy="12" r="3"/>
+                                                        </svg>
+                                                    @endif
+                                                </button>
+                                            </form>
+
+                                            <form method="POST" action="{{ route('admin.content.social.destroy', $social) }}"
+                                                  onsubmit="return confirm('Delete {{ $social->label }}?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-icon btn-sm" data-tip="Delete">
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                                        <polyline points="3 6 5 6 21 6"/>
+                                                        <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-8 text-sm" style="color:var(--muted)">
+                                        No social links yet. Add one above.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -264,32 +574,79 @@
 
 @push('scripts')
 <script>
-// الدالة المسؤولة عن تغليف المسار (Path) داخل تاج الـ SVG ليكون جاهز للحفظ والاستخدام بالواجهة
-function buildSvgString(path) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">\n  ${path}\n</svg>`;
-}
+    const PLATFORM_DATA   = @json($socialPlatforms);
+    const CONTACT_ICONS   = @json($contactIconOptions);
+    const SOCIAL_ICON_MAP = @json($socialIconMap);
+    const CONTACT_FA_MAP  = @json($contactFaIconMap);
 
-function fillSocialIcon(svgPath) {
-    const el = document.getElementById('social_icon_svg');
-    if (!el) return;
-    el.value = buildSvgString(svgPath);
-    el.dispatchEvent(new Event('input', { bubbles: true }));
-}
+    function getIconClass(icon, fallbackKey) {
+        if (!icon) return CONTACT_FA_MAP[fallbackKey] || CONTACT_FA_MAP.custom || 'fa-solid fa-circle-question';
 
-function fillContactIcon(svgPath) {
-    const primary = document.getElementById('contact_item_icon_svg');
-    const secondary = document.getElementById('contact_item_icon_svg_2');
-    const svgCode = buildSvgString(svgPath);
+        if (typeof icon === 'string') return icon;
+        if (typeof icon.icon === 'string') return icon.icon;
+        if (typeof icon.icon_class === 'string') return icon.icon_class;
+        if (typeof icon.class === 'string') return icon.class;
 
-    if (primary) {
-        primary.value = svgCode;
-        primary.dispatchEvent(new Event('input', { bubbles: true }));
+        return CONTACT_FA_MAP[fallbackKey] || CONTACT_FA_MAP.custom || 'fa-solid fa-circle-question';
     }
 
-    if (secondary) {
-        secondary.value = svgCode;
-        secondary.dispatchEvent(new Event('input', { bubbles: true }));
+    function getSocialIconClass(plat, fallbackKey) {
+        if (!plat) return SOCIAL_ICON_MAP[fallbackKey] || SOCIAL_ICON_MAP.custom || 'fa-solid fa-link';
+
+        if (typeof plat === 'string') return plat;
+        if (typeof plat.icon === 'string') return plat.icon;
+        if (typeof plat.icon_class === 'string') return plat.icon_class;
+
+        return SOCIAL_ICON_MAP[fallbackKey] || SOCIAL_ICON_MAP.custom || 'fa-solid fa-link';
     }
-}
+
+    function contactPage() {
+        return {
+            sectionOpen: false,
+        };
+    }
+
+    function contactItemForm() {
+        const firstKey = Object.keys(CONTACT_ICONS)[0] || 'email';
+        const firstIcon = CONTACT_ICONS[firstKey] || {};
+
+        return {
+            selectedKey: firstKey,
+            currentColor: firstIcon.color || '#3B82F6',
+            currentLabel: firstIcon.label || 'Email',
+            currentIcon: getIconClass(firstIcon, firstKey),
+
+            syncIcon() {
+                const icon = CONTACT_ICONS[this.selectedKey] || {};
+                this.currentColor = icon.color || '#3B82F6';
+                this.currentLabel = icon.label || this.selectedKey;
+                this.currentIcon = getIconClass(icon, this.selectedKey);
+            }
+        };
+    }
+
+    function socialForm() {
+        const firstKey = Object.keys(PLATFORM_DATA)[0] || 'facebook';
+        const firstPlat = PLATFORM_DATA[firstKey] || {};
+
+        return {
+            selectedPlatform: firstKey,
+            platformLabel: firstPlat.label || 'Facebook',
+            platformColor: firstPlat.color || '#1877F2',
+            platformIcon: getSocialIconClass(firstPlat, firstKey),
+            waNumber: '',
+
+            onPlatformChange() {
+                const plat = PLATFORM_DATA[this.selectedPlatform] || {};
+                this.platformLabel = plat.label || this.selectedPlatform;
+                this.platformColor = plat.color || '#64748B';
+                this.platformIcon = getSocialIconClass(plat, this.selectedPlatform);
+            }
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDragSort('contactItemsList', '{{ route("admin.content.contact.item.store") }}/reorder');
+    });
 </script>
 @endpush

@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->string('value_en');
             $table->string('value_ar');
             $table->string('color')->default('#3b82f6');
-            $table->text('icon_path');
+            $table->text('icon_path')->nullable();
             $table->text('icon_path2')->nullable();
             $table->boolean('icon_circle')->default(false);
             $table->unsignedInteger('sort_order')->default(0);
@@ -40,7 +40,7 @@ return new class extends Migration {
             $table->id();
             $table->string('label');
             $table->string('href');
-            $table->text('icon_svg');               // SVG path d string
+            $table->text('icon_svg')->nullable();               // SVG path d string
             $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

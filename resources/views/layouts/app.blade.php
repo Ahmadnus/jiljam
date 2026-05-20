@@ -8,6 +8,7 @@
     class="scroll-smooth"
 >
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $settings['brand_name'] ?? '' }} — A precision-focused software engineering studio crafting scalable digital solutions.">
@@ -75,19 +76,41 @@
                 'stats' => collect($stats ?? [])->map(fn($s) => ['num' => $s->number, 'label_en' => $s->label_en, 'label_ar' => $s->label_ar]),
                 'skills' => collect($skills ?? [])->map(fn($s) => ['name_en' => $s->name_en, 'name_ar' => $s->name_ar, 'pct' => $s->percentage]),
             ],
-            'contact' => [
-                'badge_en' => $contact->badge_en ?? '', 'badge_ar' => $contact->badge_ar ?? '',
-                'heading_en' => $contact->heading_en ?? '', 'heading_ar' => $contact->heading_ar ?? '',
-                'items' => collect($contactItems ?? [])->map(fn($i) => [
-                    'label_en' => $i->label_en, 'label_ar' => $i->label_ar,
-                    'value_en' => $i->value_en, 'value_ar' => $i->value_ar,
-                    'color' => $i->color, 'iconPath' => $i->icon_path,
-                ]),
-            ],
+           'contact' => [
+    'badge_en' => $contact->badge_en ?? '',
+    'badge_ar' => $contact->badge_ar ?? '',
+    'heading_en' => $contact->heading_en ?? '',
+    'heading_ar' => $contact->heading_ar ?? '',
+    'items' => collect($contactItems ?? [])->map(fn($i) => [
+        'id'        => $i->id,
+        'label_en'  => $i->label_en,
+        'label_ar'  => $i->label_ar,
+        'value_en'  => $i->value_en,
+        'value_ar'  => $i->value_ar,
+        'color'     => $i->color,
+        'icon_key'  => $i->icon_key,
+        'icon'      => match ($i->icon_key) {
+            'email'    => 'fa-solid fa-envelope',
+            'phone'    => 'fa-solid fa-phone',
+            'mobile'   => 'fa-solid fa-mobile-screen-button',
+            'whatsapp' => 'fa-brands fa-whatsapp',
+            'location' => 'fa-solid fa-location-dot',
+            'website'  => 'fa-solid fa-globe',
+            'hours'    => 'fa-regular fa-clock',
+            'fax'      => 'fa-solid fa-fax',
+            default    => 'fa-solid fa-circle-question',
+        },
+    ]),
+],
             'footer' => [
                 'rights_en' => $settings['footer_rights_en'] ?? '© 2025 JILJAM.',
                 'rights_ar' => $settings['footer_rights_ar'] ?? '© 2025 JILJAM.',
-                'socials' => collect($socials ?? [])->map(fn($s) => ['label' => $s->label, 'href' => $s->href, 'icon' => $s->icon_svg]),
+             'socials' => collect($socials ?? [])->map(fn($s) => [
+    'label'        => $s->label,
+    'href'         => $s->resolved_href,
+    'icon'         => $s->platform_icon,
+    'platform_key' => $s->platform_key,
+]),
             ],
             'orbitCenter' => [
                 'logo' => ($settings['orbit_center_logo'] ?? null) ? asset('storage/'.$settings['orbit_center_logo']) : null,
@@ -105,7 +128,7 @@
     <!-- 3. الموارد الخارجية (Libraries) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     
     <script src="https://cdn.tailwindcss.com"></script>

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
 {{-- ══ NAV ══════════════════════════════════════════════════════════════ --}}
 <nav class="fixed top-0 inset-x-0 z-50"
      :class="isDark ? 'glass-nav-dark' : 'glass-nav-light'"
@@ -387,58 +389,30 @@
         <div data-aos="fade-up" data-aos-delay="240" class="rounded-3xl p-5 sm:p-10 space-y-2 sm:space-y-4"
              :class="[isDark?'glass-dark':'glass-light', isAr?'text-right':'text-left']">
             
-            <template x-for="(item, index) in (d.contact?.items || [])" :key="item.id || index">
-                <div>
-                    <div class="contact-item flex items-center gap-3 sm:gap-5 p-3 sm:p-4"
-                         :class="[isDark?'hover:bg-white/5':'hover:bg-[#24344c]/4', isAr?'flex-row-reverse':'']">
-                        
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0" 
-                             :style="'background:' + (item.color || '#3b82f6') + '22'">
-                            
-                            <div class="w-full h-full flex items-center justify-center items-center"
-                                 :style="'color:' + (item.color || '#3b82f6')"
-                                 x-html="(() => {
-                                    let rawIcon = item.icon_path || item.iconPath || '';
-                                    let rawIcon2 = item.icon_path2 || item.iconPath2 || '';
-                                    let hasCircle = item.icon_circle || item.iconCircle || false;
-                                    
-                                    if (!rawIcon) return '';
-                                    
-                                    // إذا كانت الأيقونة عبارة عن كود SVG كامل ممرر من المقترحات
-                                    if (rawIcon.includes('<svg')) {
-                                        return rawIcon;
-                                    }
-                                    
-                                    // إذا كانت عبارة عن مسارات صافية (Path string) يتم تغليفها وحمايتها هنا
-                                    let innerSVG = `<path d='${rawIcon}' stroke-linecap='round' stroke-linejoin='round'></path>`;
-                                    if (rawIcon2) {
-                                        innerSVG += `<path d='${rawIcon2}' stroke-linecap='round' stroke-linejoin='round'></path>`;
-                                    }
-                                    if (hasCircle) {
-                                        innerSVG += `<circle cx='12' cy='12' r='10'></circle>`;
-                                    }
-                                    
-                                    return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' class='w-5 h-5 sm:w-6 sm:h-6'>${innerSVG}</svg>`;
-                                 })()">
-                            </div>
-                        </div>
+           <template x-for="(item, index) in (d.contact?.items || [])" :key="item.id || index">
+    <div>
+        <div class="contact-item flex items-center gap-3 sm:gap-5 p-3 sm:p-4"
+             :class="[isDark?'hover:bg-white/5':'hover:bg-[#24344c]/4', isAr?'flex-row-reverse':'']">
 
-                        <div>
-                            <p class="text-xs uppercase tracking-widest opacity-35 mb-0.5"
-                               x-text="isAr ? (item.label_ar || '') : (item.label_en || '')"></p>
-                            <p class="font-medium text-sm sm:text-base" :class="isDark?'text-slate-100':'text-[#24344c]'"
-                               x-text="isAr ? (item.value_ar || '') : (item.value_en || '')"></p>
-                        </div>
-                    </div>
-                </div>
-            </template>
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                 :style="'background:' + (item.color || '#3b82f6') + '22'">
+                <i :class="item.icon || 'fa-solid fa-circle-question'"
+                   class="text-sm sm:text-base"
+                   :style="'color:' + (item.color || '#3b82f6')"></i>
+            </div>
+
+            <div>
+                <p class="text-xs uppercase tracking-widest opacity-35 mb-0.5"
+                   x-text="isAr ? (item.label_ar || '') : (item.label_en || '')"></p>
+                <p class="font-medium text-sm sm:text-base" :class="isDark?'text-slate-100':'text-[#24344c]'"
+                   x-text="isAr ? (item.value_ar || '') : (item.value_en || '')"></p>
+            </div>
+        </div>
+    </div>
+</template>
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="320" class="mt-6 sm:mt-8">
-            <a :href="'mailto:' + (d.contact?.cta_email || '')"
-               class="inline-flex items-center gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#24344c] text-[#FFFDF5] font-semibold text-sm tracking-wide hover:bg-[#2d4266] hover:-translate-y-0.5 transition-all shadow-xl shadow-[#24344c]/30"
-               x-text="isAr ? (d.contact?.cta_ar || '') : (d.contact?.cta_en || '')"></a>
-        </div>
+        
     </div>
 </section>
 
@@ -447,27 +421,50 @@
 {{-- ══ FOOTER ══════════════════════════════════════════════════════════ --}}
 <footer class="relative z-10 border-t py-10 sm:py-14 px-4 sm:px-6" :class="isDark ? 'border-slate-800/60' : 'border-[#24344c]/10'">
     <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8" :class="isAr ? 'md:flex-row-reverse' : ''">
-            
-            <!-- تم حذف الجزء الخاص باللوغو والنص من هنا -->
-            
-            <!-- حاوية السوشيال ميديا (أضفت ml-auto لتبقى في جهة اليمين/اليسار) -->
-            <div class="flex items-center gap-2 sm:gap-3 ml-auto">
-                <template x-for="(s, index) in (d.socials || d.footer?.socials || [])" :key="s.id || index">
-                    <a :href="s.href || '#'"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="footer-link w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center border transition-all"
-                       :class="isDark ? 'border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200 hover:bg-white/5' : 'border-[#24344c]/15 text-[#24344c]/50 hover:border-[#24344c]/35 hover:text-[#24344c] hover:bg-[#24344c]/5'"
-                       :aria-label="s.label || 'Social Link'">
-                        
-                        <div class="w-3.5 h-3.5 sm:w-4 sm:h-4 flex items-center justify-center"
-                             x-html="renderSocialIcon(s)">
-                        </div>
-                    </a>
-                </template>
-            </div>
-        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8"
+     :class="isAr ? 'md:flex-row-reverse' : ''">
+
+    {{-- LOGO --}}
+    <a href="#" class="flex items-center gap-2 flex-shrink-0" aria-label="Home">
+        @if(!empty($settings['brand_logo']))
+            <img src="{{ asset('storage/'.$settings['brand_logo']) }}"
+                 alt="{{ $settings['brand_name'] ?? 'JILJAM' }}"
+                 class="h-8 w-auto">
+        @else
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+                <path d="M6 4L26 4L26 14L14 14L14 18L26 18L26 28L6 28L6 20L16 20L16 16L6 16Z"
+                      :fill="isDark?'#94a3b8':'#24344c'" opacity=".9"/>
+                <path d="M8 6L24 6L24 12L12 12L12 20L8 20Z"
+                      fill="url(#footerNgrd)" opacity=".75"/>
+                <defs>
+                    <linearGradient id="footerNgrd" x1="8" y1="6" x2="24" y2="20">
+                        <stop offset="0%" stop-color="#3a6fa8"/>
+                        <stop offset="100%" stop-color="#24344c"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        @endif
+    </a>
+
+    {{-- SOCIALS --}}
+    <div class="flex items-center gap-2 sm:gap-3">
+        <template x-for="(s, index) in (d.footer?.socials || [])" :key="s.id || index">
+            <a :href="s.href || '#'"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="footer-link w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border transition-all duration-300 hover:-translate-y-0.5"
+               :class="isDark
+                    ? 'border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200 hover:bg-white/5'
+                    : 'border-[#24344c]/15 text-[#24344c]/55 hover:border-[#24344c]/35 hover:text-[#24344c] hover:bg-[#24344c]/5'"
+               :aria-label="s.label || s.platform_key">
+
+                <i :class="s.icon || 'fa-solid fa-link'"
+                   class="text-[15px] sm:text-[16px] leading-none"></i>
+            </a>
+        </template>
+    </div>
+
+</div>
         
         <div class="h-px mb-6 sm:mb-8" :class="isDark ? 'bg-slate-800/60' : 'bg-[#24344c]/8'"></div>
         
@@ -490,33 +487,33 @@ function jiljamApp() {
         isDark: true,
         isAr: false,
         menuOpen: false,
-        d: {},   // all dynamic data
+        d: {},
 
         init() {
-            // Load all PHP-generated data
             this.d = {
-                brandName    : _phpData.brandName,
-                navLinks     : _phpData.navLinks,
-                hero         : _phpData.hero,
-                services     : _phpData.services,
-                svcSection   : { badge_en: '{{ $settings["svc_badge_en"] ?? "What We Do" }}', badge_ar: '{{ $settings["svc_badge_ar"] ?? "ما نقدمه" }}', heading_en: '{{ $settings["svc_heading_en"] ?? "Our Services" }}', heading_ar: '{{ $settings["svc_heading_ar"] ?? "خدماتنا" }}', sub_en: '{{ $settings["svc_sub_en"] ?? "" }}', sub_ar: '{{ $settings["svc_sub_ar"] ?? "" }}' },
-                techRings    : _phpData.techRings,
-                techSection  : _phpData.techSection,
-                projects     : _phpData.projects,
-                projSection  : _phpData.projSection,
-                about        : _phpData.about,
-                contact      : _phpData.contact,
-                footer       : _phpData.footer,
-                orbitCenter  : _phpData.orbitCenter,
+                brandName   : _phpData.brandName,
+                navLinks    : _phpData.navLinks,
+                hero        : _phpData.hero,
+                services    : _phpData.services,
+                svcSection  : { badge_en: '{{ $settings["svc_badge_en"] ?? "What We Do" }}', badge_ar: '{{ $settings["svc_badge_ar"] ?? "ما نقدمه" }}', heading_en: '{{ $settings["svc_heading_en"] ?? "Our Services" }}', heading_ar: '{{ $settings["svc_heading_ar"] ?? "خدماتنا" }}', sub_en: '{{ $settings["svc_sub_en"] ?? "" }}', sub_ar: '{{ $settings["svc_sub_ar"] ?? "" }}' },
+                techRings   : _phpData.techRings,
+                techSection : _phpData.techSection,
+                projects    : _phpData.projects,
+                projSection : _phpData.projSection,
+                about       : _phpData.about,
+                contact     : _phpData.contact,
+                footer      : _phpData.footer,
+                orbitCenter : _phpData.orbitCenter,
             };
 
-            // Theme
             const savedTheme = localStorage.getItem('jiljam_theme');
             const savedLang  = localStorage.getItem('jiljam_lang');
             this.isDark = savedTheme !== null ? savedTheme === 'dark' : (_phpData.defaultTheme === 'dark');
             this.isAr   = savedLang !== null ? savedLang === 'ar' : (_phpData.defaultLang === 'ar');
+
             document.documentElement.classList.toggle('dark', this.isDark);
             this.applyLocale();
+
             this.$nextTick(() => {
                 this.initParticles();
                 AOS.init({ once:true, duration:900, offset:60, easing:'ease-out-cubic' });
@@ -531,12 +528,14 @@ function jiljamApp() {
             localStorage.setItem('jiljam_lang', this.isAr ? 'ar' : 'en');
             this.applyLocale();
         },
+
         applyLocale() {
             const h = document.documentElement;
             h.setAttribute('lang', this.isAr ? 'ar' : 'en');
-            h.setAttribute('dir',  this.isAr ? 'rtl' : 'ltr');
+            h.setAttribute('dir', this.isAr ? 'rtl' : 'ltr');
             h.classList.toggle('ar-mode', this.isAr);
         },
+
         toggleTheme() {
             this.isDark = !this.isDark;
             document.documentElement.classList.toggle('dark', this.isDark);
@@ -563,9 +562,11 @@ function jiljamApp() {
                 detectRetina: true,
             };
         },
+
         async initParticles() {
             if (window.tsParticles) await tsParticles.load('tsparticles', this.particlesConfig(this.isDark));
         },
+
         async reloadParticles() {
             try { const c = tsParticles.domItem(0); if(c) await c.destroy(); } catch(e){}
             await this.initParticles();
@@ -574,6 +575,7 @@ function jiljamApp() {
         setupServiceCards() {
             const cards = document.querySelectorAll('.svc-card');
             if (!cards.length) return;
+
             const obs = new IntersectionObserver((entries, o) => {
                 entries.forEach(e => {
                     if (!e.isIntersecting) return;
@@ -582,6 +584,7 @@ function jiljamApp() {
                     o.unobserve(e.target);
                 });
             }, { threshold:.28 });
+
             cards.forEach(c => {
                 obs.observe(c);
                 c.addEventListener('mousemove', e => {
@@ -591,6 +594,7 @@ function jiljamApp() {
                 });
             });
         },
+
         setupSkillBars() {
             const obs = new IntersectionObserver(entries => {
                 entries.forEach(e => {
@@ -599,8 +603,13 @@ function jiljamApp() {
                     obs.unobserve(e.target);
                 });
             }, { threshold:.5 });
-            document.querySelectorAll('.skill-bar[data-pct]').forEach(b => { b.style.width='0'; obs.observe(b); });
+
+            document.querySelectorAll('.skill-bar[data-pct]').forEach(b => {
+                b.style.width = '0';
+                obs.observe(b);
+            });
         },
+
         setupTilt() {
             document.querySelectorAll('.proj-card').forEach(card => {
                 card.addEventListener('mousemove', e => {
@@ -616,17 +625,75 @@ function jiljamApp() {
         },
     };
 }
-function renderSocialIcon(s) {
-    let rawIcon = s.icon_svg || s.icon || '';
-    if (!rawIcon) return '';
-    
-    // إذا كانت الأيقونة تحتوي على وسم SVG كامل وجاهز
-    if (rawIcon.includes('<svg')) {
-        return rawIcon.replace('<svg', '<svg class="w-full h-full" fill="currentColor"');
+
+/* ========= ICON HELPERS ========= */
+const FOOTER_ICON_MAP = {
+    facebook:  'fa-brands fa-facebook-f',
+    instagram: 'fa-brands fa-instagram',
+    whatsapp:  'fa-brands fa-whatsapp',
+    tiktok:    'fa-brands fa-tiktok',
+    twitter_x: 'fa-brands fa-x-twitter',
+    twitter:   'fa-brands fa-x-twitter',
+    x:         'fa-brands fa-x-twitter',
+    linkedin:  'fa-brands fa-linkedin-in',
+    youtube:   'fa-brands fa-youtube',
+    snapchat:  'fa-brands fa-snapchat',
+    telegram:  'fa-brands fa-telegram',
+    pinterest: 'fa-brands fa-pinterest-p',
+    github:    'fa-brands fa-github',
+    gitlab:    'fa-brands fa-gitlab',
+    dribbble:  'fa-brands fa-dribbble',
+    behance:   'fa-brands fa-behance',
+    custom:    'fa-solid fa-link'
+};
+
+function getSocialIconClass(s) {
+    if (!s) return FOOTER_ICON_MAP.custom;
+
+    if (typeof s.icon === 'string' && s.icon.trim() !== '') {
+        return s.icon.trim();
     }
-    
-    // إذا كانت مجرد مسار Path صافي ممرر كـ Text
-    return '<svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="' + rawIcon + '"></path></svg>';
+
+    if (typeof s.icon_class === 'string' && s.icon_class.trim() !== '') {
+        return s.icon_class.trim();
+    }
+
+    if (typeof s.iconClass === 'string' && s.iconClass.trim() !== '') {
+        return s.iconClass.trim();
+    }
+
+    if (s.platform && typeof s.platform === 'object') {
+        if (typeof s.platform.icon === 'string' && s.platform.icon.trim() !== '') {
+            return s.platform.icon.trim();
+        }
+
+        if (typeof s.platform.icon_class === 'string' && s.platform.icon_class.trim() !== '') {
+            return s.platform.icon_class.trim();
+        }
+    }
+
+    const key = String(s.platform_key || s.key || 'custom').toLowerCase();
+    return FOOTER_ICON_MAP[key] || FOOTER_ICON_MAP.custom;
+}
+
+function renderSocialIcon(s) {
+    const cls = getSocialIconClass(s);
+    return `<i class="${cls} text-[11px] sm:text-xs"></i>`;
+}
+
+/* اختيارية: لو حبيت أيقونة داخل كروت about */
+function renderAboutIcon(iconKey) {
+    const map = {
+        growth: 'fa-solid fa-chart-line',
+        design: 'fa-solid fa-pen-ruler',
+        code: 'fa-solid fa-code',
+        support: 'fa-solid fa-headset',
+        custom: 'fa-solid fa-circle-info',
+    };
+
+    return map[iconKey || 'custom'] || map.custom;
 }
 </script>
+    
+
 @endsection

@@ -68,6 +68,12 @@ class SocialLink extends Model
                 'category' => 'social',
                 'icon' => 'fa-brands fa-linkedin-in',
             ],
+            'phone' => [
+                'label' => 'Call',
+                'color' => '#22C55E',
+                'category' => 'social',
+                'icon' => 'fa-solid fa-phone',
+            ],
             'youtube' => [
                 'label' => 'YouTube',
                 'color' => '#FF0000',

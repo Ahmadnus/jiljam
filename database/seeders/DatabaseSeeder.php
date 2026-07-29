@@ -468,7 +468,7 @@ class DatabaseSeeder extends Seeder
             [
                 'label' => 'Call',
                 'platform_key' => 'phone',
-                'href' => 'tel:+962771511605',
+                'href' => 'tel:771511605',
                 'sort_order' => 5,
             ],
         ];

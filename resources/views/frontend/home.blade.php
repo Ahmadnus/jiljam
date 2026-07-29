@@ -408,7 +408,12 @@
                         <path d="M12 6v6l4 2"></path>
                     </svg>
                 </template>
-                <template x-if="!['Location','Response Time'].includes(item.label_en)">
+                <template x-if="item.label_en === 'Phone'">
+                    <svg width="18" height="18" fill="none" :stroke="item.color || '#3b82f6'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="sm:w-5 sm:h-5">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"></path>
+                    </svg>
+                </template>
+                <template x-if="!['Location','Response Time','Phone'].includes(item.label_en)">
                     <svg width="18" height="18" fill="none" :stroke="item.color || '#3b82f6'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="sm:w-5 sm:h-5">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <path d="M22 6l-10 7L2 6"></path>

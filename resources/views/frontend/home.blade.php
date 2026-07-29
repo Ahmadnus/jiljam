@@ -396,9 +396,24 @@
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                  :style="'background:' + (item.color || '#3b82f6') + '22'">
-                <i :class="item.icon || 'fa-solid fa-circle-question'"
-                   class="text-sm sm:text-base"
-                   :style="'color:' + (item.color || '#3b82f6')"></i>
+                <template x-if="item.label_en === 'Location'">
+                    <svg width="18" height="18" fill="none" :stroke="item.color || '#3b82f6'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="sm:w-5 sm:h-5">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </template>
+                <template x-if="item.label_en === 'Response Time'">
+                    <svg width="18" height="18" fill="none" :stroke="item.color || '#3b82f6'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="sm:w-5 sm:h-5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                </template>
+                <template x-if="!['Location','Response Time'].includes(item.label_en)">
+                    <svg width="18" height="18" fill="none" :stroke="item.color || '#3b82f6'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="sm:w-5 sm:h-5">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <path d="M22 6l-10 7L2 6"></path>
+                    </svg>
+                </template>
             </div>
 
             <div>

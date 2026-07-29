@@ -314,6 +314,27 @@
     transition: transform .4s ease;
     transform: translate(-50%,-50%);
 }
+
+/* WhatsApp floating button */
+.whatsapp-float{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.whatsapp-float i{color:#fff;font-size:30px}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(37,211,102,.5)}
+html.ar-mode .whatsapp-float{right:auto;left:20px}
+@media(max-width:480px){.whatsapp-float{width:52px;height:52px;bottom:16px;right:16px}.whatsapp-float i{font-size:26px}html.ar-mode .whatsapp-float{left:16px}}
     </style>
 </head>
 
@@ -322,6 +343,11 @@
 
     <!-- 5. مكان عرض المحتوى (Sections) -->
     @yield('content')
+
+    <!-- زر واتساب العائم -->
+    <a href="https://wa.me/962771511605" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- 6. السكربتات النهائية -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

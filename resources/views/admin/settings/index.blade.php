@@ -56,6 +56,33 @@
                             </div>
                         </div>
 
+                        <div class="mt-6 mb-2 pt-4" style="border-top:1px solid var(--border)">
+                            <h2 class="text-base font-bold" style="color:var(--text)">Typography &amp; Font Settings</h2>
+                            <p class="text-sm mt-1" style="color:var(--muted)">Choose the default font family used across the public site for Arabic and English text.</p>
+                        </div>
+
+                        <div class="form-grid">
+                            {{-- Arabic Font --}}
+                            <div class="field">
+                                <label class="label">Arabic Font</label>
+                                <select name="font_arabic" class="input">
+                                    @foreach($fontsConfig['arabic'] as $key => $font)
+                                        <option value="{{ $key }}" @selected(old('font_arabic', $settings['font_arabic'] ?? $fontsConfig['default_arabic']) === $key)>{{ $font['label'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            {{-- English Font --}}
+                            <div class="field">
+                                <label class="label">English Font</label>
+                                <select name="font_english" class="input">
+                                    @foreach($fontsConfig['english'] as $key => $font)
+                                        <option value="{{ $key }}" @selected(old('font_english', $settings['font_english'] ?? $fontsConfig['default_english']) === $key)>{{ $font['label'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary">
                                 Save Settings

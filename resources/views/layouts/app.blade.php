@@ -122,9 +122,16 @@
     </script>
 
     <!-- 3. الموارد الخارجية (Libraries) -->
+    @php
+        $fontsConfig = config('fonts');
+        $arFontKey = $settings['font_arabic'] ?? $fontsConfig['default_arabic'];
+        $enFontKey = $settings['font_english'] ?? $fontsConfig['default_english'];
+        $arFont = $fontsConfig['arabic'][$arFontKey] ?? $fontsConfig['arabic'][$fontsConfig['default_arabic']];
+        $enFont = $fontsConfig['english'][$enFontKey] ?? $fontsConfig['english'][$fontsConfig['default_english']];
+    @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family={{ $arFont['google'] }}&family={{ $enFont['google'] }}&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     
@@ -142,16 +149,22 @@
 
     <!-- 4. التنسيقات المخصصة (Custom Styles) -->
     <style>
+        :root{
+            --font-arabic: '{{ $arFont['family'] }}', sans-serif;
+            --font-english: '{{ $enFont['family'] }}', sans-serif;
+        }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
-        body{font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;transition:background-color 500ms ease,color 500ms ease}
+        body{font-family:var(--font-english);min-height:100vh;overflow-x:hidden;transition:background-color 500ms ease,color 500ms ease}
         [x-cloak]{display:none!important}
         ::-webkit-scrollbar{width:4px}
         ::-webkit-scrollbar-thumb{background:#24344c;border-radius:4px}
-        .ar-mode,.ar-mode body{font-family:'Tajawal','Cairo',sans-serif!important;direction:rtl}
-        .ar-mode .font-display{font-family:'Cairo','Tajawal',sans-serif!important}
-        html.ar-mode body{font-family:'Tajawal',sans-serif!important}
-        html.ar-mode .font-display,html.ar-mode h1,html.ar-mode h2,html.ar-mode h3{font-family:'Cairo',sans-serif!important}
+        [dir="rtl"],[lang="ar"]{font-family:var(--font-arabic)}
+        [dir="ltr"],[lang="en"]{font-family:var(--font-english)}
+        .ar-mode,.ar-mode body{font-family:var(--font-arabic)!important;direction:rtl}
+        .ar-mode .font-display{font-family:var(--font-arabic)!important}
+        html.ar-mode body{font-family:var(--font-arabic)!important}
+        html.ar-mode .font-display,html.ar-mode h1,html.ar-mode h2,html.ar-mode h3{font-family:var(--font-arabic)!important}
         #tsparticles{position:fixed;inset:0;z-index:0;pointer-events:none}
         .glass-nav-dark{background:rgba(15,23,42,.62);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
         .glass-nav-light{background:rgba(255,253,245,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(36,52,76,.10)}
@@ -185,7 +198,7 @@
         .svc-card:hover .svc-orb{opacity:.26}
         .svc-num{position:absolute;top:14px;right:20px;font-family:'Syne',sans-serif;font-size:44px;font-weight:800;line-height:1;opacity:.055;pointer-events:none;user-select:none}
         @media(min-width:768px){.svc-num{font-size:52px}}
-        html.ar-mode .svc-num{right:auto!important;left:20px!important;font-family:'Cairo',sans-serif}
+        html.ar-mode .svc-num{right:auto!important;left:20px!important;font-family:var(--font-arabic)}
         .spin-once{animation:spinIn 900ms cubic-bezier(0.22,1,0.36,1) both}
         .skill-bar{height:100%;border-radius:inherit;background:linear-gradient(to right,#3b82f6,#8b5cf6);transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
         .proj-card{border-radius:16px;overflow:hidden;transition:transform 320ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 320ms ease;transform-style:preserve-3d;will-change:transform;display:flex;flex-direction:column}

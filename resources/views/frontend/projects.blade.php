@@ -11,9 +11,16 @@
     <title>Projects — {{ $settings['brand_name'] ?? '' }}</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    @php
+        $fontsConfig = config('fonts');
+        $arFontKey = $settings['font_arabic'] ?? $fontsConfig['default_arabic'];
+        $enFontKey = $settings['font_english'] ?? $fontsConfig['default_english'];
+        $arFont = $fontsConfig['arabic'][$arFontKey] ?? $fontsConfig['arabic'][$fontsConfig['default_arabic']];
+        $enFont = $fontsConfig['english'][$enFontKey] ?? $fontsConfig['english'][$fontsConfig['default_english']];
+    @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family={{ $arFont['google'] }}&family={{ $enFont['google'] }}&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,11 +29,17 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
+        :root{
+            --font-arabic: '{{ $arFont['family'] }}', sans-serif;
+            --font-english: '{{ $enFont['family'] }}', sans-serif;
+        }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'DM Sans',sans-serif;min-height:100vh;transition:background-color 500ms ease,color 500ms ease}
+        body{font-family:var(--font-english);min-height:100vh;transition:background-color 500ms ease,color 500ms ease}
         [x-cloak]{display:none!important}
-        .ar-mode body{font-family:'Tajawal','Cairo',sans-serif!important;direction:rtl}
-        .ar-mode .font-display{font-family:'Cairo','Tajawal',sans-serif!important}
+        [dir="rtl"],[lang="ar"]{font-family:var(--font-arabic)}
+        [dir="ltr"],[lang="en"]{font-family:var(--font-english)}
+        .ar-mode body{font-family:var(--font-arabic)!important;direction:rtl}
+        .ar-mode .font-display{font-family:var(--font-arabic)!important}
         .glass-nav-dark{background:rgba(15,23,42,.62);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
         .glass-nav-light{background:rgba(255,253,245,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(36,52,76,.10)}
         .glass-dark{background:rgba(36,52,76,.28);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.07)}
@@ -73,7 +86,7 @@
 <section class="pt-28 sm:pt-36 pb-10 sm:pb-14 px-4 sm:px-6">
     <div class="max-w-7xl mx-auto text-center">
         <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl mb-4"
-            :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+            :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
             :class="isDark?'text-slate-50':'text-[#24344c]'"
             x-text="isAr ? 'جميع المشاريع' : 'All Projects'"></h1>
         <p class="opacity-55 max-w-xl mx-auto" x-text="isAr ? 'استعرض جميع أعمالنا، وقم بالتصفية حسب التصنيف.' : 'Browse our full portfolio and filter by category.'"></p>

@@ -76,7 +76,7 @@
 
         <h1 data-aos="fade-up" data-aos-delay="200"
             class="font-bold leading-[0.9] tracking-[-0.025em] mb-6 sm:mb-8 float-anim"
-            :style="isAr ? 'font-family:\'Cairo\',sans-serif; font-size:clamp(2.2rem,8vw,5.8rem)' : 'font-family:\'Syne\',sans-serif; font-size:clamp(2.6rem,9vw,6.2rem)'"
+            :style="isAr ? 'font-family:var(--font-arabic); font-size:clamp(2.2rem,8vw,5.8rem)' : 'font-family:\'Syne\',sans-serif; font-size:clamp(2.6rem,9vw,6.2rem)'"
             :class="isDark?'text-slate-50':'text-[#24344c]'">
             <span x-text="isAr ? d.hero.line1_ar : d.hero.line1_en"></span><br>
             <span class="font-light italic" :class="isDark?'text-slate-400':'text-[#24344c]/55'" x-text="isAr ? d.hero.line2_ar : d.hero.line2_en"></span><br>
@@ -118,7 +118,7 @@
                 </div>
                 <h2 id="svc-heading" data-aos="fade-right" data-aos-delay="80"
                     class="font-bold text-4xl sm:text-5xl md:text-6xl leading-tight"
-                    :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                    :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                     :class="isDark?'text-slate-50':'text-[#24344c]'"
                     x-text="isAr ? (d.svcSection?.heading_ar || '') : (d.svcSection?.heading_en || '')"></h2>
                 <div class="section-divider mt-3 sm:mt-4" data-aos="fade-right" data-aos-delay="140"></div>
@@ -160,7 +160,7 @@
                     
                     <div class="relative z-10">
                         <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-2.5"
-                            :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                            :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                             :class="isDark?'text-slate-100':'text-[#24344c]'"
                             x-text="isAr ? (svc.title_ar || '') : (svc.title_en || '')"></h3>
                         <p class="text-sm leading-relaxed opacity-55" x-text="isAr ? (svc.desc_ar || '') : (svc.desc_en || '')"></p>
@@ -186,7 +186,7 @@
                 </div>
                 <h2 id="tech-heading" data-aos="fade-right" data-aos-delay="80"
                     class="font-bold text-4xl sm:text-5xl md:text-6xl leading-tight"
-                    :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                    :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                     :class="isDark?'text-slate-50':'text-[#24344c]'"
                     x-text="isAr ? (d.techSection?.heading_ar || '') : (d.techSection?.heading_en || '')"></h2>
                 <div class="section-divider mt-4" data-aos="fade-right" data-aos-delay="140" style="background:linear-gradient(to right,#06b6d4,transparent)"></div>
@@ -264,7 +264,7 @@
                 <p class="text-xs uppercase tracking-widest opacity-45 mb-2 font-medium"
                    x-text="isAr ? d.projSection.badge_ar : d.projSection.badge_en"></p>
                 <h2 id="proj-heading" class="font-bold text-4xl sm:text-5xl"
-                    :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                    :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                     :class="isDark?'text-slate-50':'text-[#24344c]'"
                     x-text="isAr ? d.projSection.heading_ar : d.projSection.heading_en"></h2>
                 <div class="section-divider mt-3 sm:mt-4"></div>
@@ -291,7 +291,7 @@
                                 </div>
                                 <div class="p-5 sm:p-6">
                                     <h3 class="font-bold text-base sm:text-lg mb-2"
-                                        :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                                        :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                                         :class="isDark?'text-slate-100':'text-[#24344c]'"
                                         x-text="isAr ? p.title_ar : p.title_en"></h3>
                                     <p class="text-sm opacity-55 mb-4 leading-relaxed line-clamp-2" x-text="isAr ? p.desc_ar : p.desc_en"></p>
@@ -343,7 +343,7 @@
                 </div>
                 <h2 id="about-heading" data-aos="fade-right" data-aos-delay="80"
                     class="font-bold text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 leading-tight"
-                    :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                    :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
                     :class="isDark?'text-slate-50':'text-[#24344c]'"
                     x-text="isAr ? d.about.heading_ar : d.about.heading_en"></h2>
                 <div class="section-divider mb-5 sm:mb-6" data-aos="fade-right" data-aos-delay="120" style="background:linear-gradient(to right,#10b981,transparent)"></div>
@@ -353,7 +353,7 @@
                     <template x-for="stat in d.about.stats" :key="stat.num">
                         <div class="rounded-2xl p-4 sm:p-5 hover:-translate-y-1 transition-transform duration-300" :class="isDark?'glass-dark':'glass-light'">
                             <p class="font-extrabold text-2xl sm:text-3xl mb-1 gradient-text"
-                               :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'" x-text="stat.num"></p>
+                               :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'" x-text="stat.num"></p>
                             <p class="text-xs opacity-45 uppercase tracking-wide leading-snug"
                                x-text="isAr ? stat.label_ar : stat.label_en"></p>
                         </div>
@@ -398,7 +398,7 @@
         </div>
         <h2 id="contact-heading" data-aos="fade-up" data-aos-delay="80"
             class="font-bold text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 leading-tight"
-            :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+            :style="isAr?'font-family:var(--font-arabic)':'font-family:\'Syne\',sans-serif'"
             :class="isDark?'text-slate-50':'text-[#24344c]'"
             x-text="isAr ? (d.contact?.heading_ar || '') : (d.contact?.heading_en || '')"></h2>
         <div class="flex justify-center mb-6 sm:mb-8" data-aos="fade-up" data-aos-delay="120"><div class="section-divider"></div></div>

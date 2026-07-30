@@ -12,17 +12,22 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::allKeyed();
-        return view('admin.settings.index', compact('settings'));
+        $fontsConfig = config('fonts');
+        return view('admin.settings.index', compact('settings', 'fontsConfig'));
     }
 
     public function update(Request $request)
     {
+        $fontsConfig = config('fonts');
+
         $request->validate([
             'brand_name'        => 'required|string|max:60',
             'default_theme'     => 'required|in:dark,light',
             'default_lang'      => 'required|in:en,ar',
             'brand_logo'        => 'nullable|image|max:2048',
             'orbit_center_logo' => 'nullable|image|max:2048',
+            'font_arabic'       => 'required|in:' . implode(',', array_keys($fontsConfig['arabic'])),
+            'font_english'      => 'required|in:' . implode(',', array_keys($fontsConfig['english'])),
         ]);
 
         $skip = ['brand_logo', 'orbit_center_logo', '_token', '_method'];

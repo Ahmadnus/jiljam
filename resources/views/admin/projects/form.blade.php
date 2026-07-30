@@ -88,6 +88,20 @@
                                 @error('abbr')<span class="text-xs text-rose-500 font-500 mt-1 block">{{ $message }}</span>@enderror
                             </div>
                         </div>
+
+                        <div class="field mt-6">
+                            <label class="label">Category</label>
+                            <select name="category_id" class="input">
+                                <option value="">— Uncategorized —</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" @selected(old('category_id', $project->category_id) == $cat->id)>{{ $cat->name_en }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')<span class="text-xs text-rose-500 font-500 mt-1 block">{{ $message }}</span>@enderror
+                            <div class="mt-2 text-xs" style="color:var(--muted)">
+                                Manage categories from the <a href="{{ route('admin.projects.categories.index') }}" class="underline">Categories page</a>.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

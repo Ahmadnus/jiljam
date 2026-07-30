@@ -60,7 +60,7 @@ class ContentController extends Controller
 
     public function heroUpdate(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'badge_en'  => 'required|max:120', 'badge_ar'  => 'required|max:120',
             'line1_en'  => 'required|max:80',  'line1_ar'  => 'required|max:80',
             'line2_en'  => 'required|max:80',  'line2_ar'  => 'required|max:80',
@@ -69,7 +69,7 @@ class ContentController extends Controller
             'cta1_en'   => 'required|max:60',  'cta1_ar'   => 'required|max:60',
             'cta2_en'   => 'required|max:60',  'cta2_ar'   => 'required|max:60',
         ]);
-        HeroContent::current()->update($request->validated());
+        HeroContent::current()->update($validated);
         return back()->with('success', 'Hero updated.');
     }
 
@@ -85,13 +85,13 @@ class ContentController extends Controller
 
     public function aboutUpdate(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'badge_en'        => 'required|max:80',  'badge_ar'        => 'required|max:80',
             'heading_en'      => 'required|max:150', 'heading_ar'      => 'required|max:150',
             'desc_en'         => 'required|max:600', 'desc_ar'         => 'required|max:600',
             'skills_title_en' => 'required|max:80',  'skills_title_ar' => 'required|max:80',
         ]);
-        AboutContent::current()->update($request->validated());
+        AboutContent::current()->update($validated);
         return back()->with('success', 'About updated.');
     }
 

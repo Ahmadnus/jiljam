@@ -270,44 +270,63 @@
                 <div class="section-divider mt-3 sm:mt-4"></div>
             </div>
             <div class="h-px flex-1 mx-8 mb-3 hidden md:block" :class="isDark?'bg-slate-700/50':'bg-[#24344c]/12'"></div>
-            <p class="text-sm opacity-40 max-w-xs" x-text="isAr ? d.projSection.sub_ar : d.projSection.sub_en"></p>
+            <a href="{{ route('projects.index') }}"
+               class="flex-shrink-0 px-6 py-3 rounded-full border font-semibold text-sm tracking-wide hover:-translate-y-0.5 transition-all text-center"
+               :class="isDark?'border-slate-600 text-slate-300 hover:border-slate-400':'border-[#24344c]/35 text-[#24344c]'"
+               x-text="isAr ? 'عرض الكل' : 'View All Projects'"></a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            <template x-for="(p,i) in d.projects" :key="i">
-                <article class="proj-card" :class="isDark?'glass-dark':'glass-light'" data-aos="fade-up" :data-aos-delay="(i%3)*100">
-                    <div class="aspect-video flex items-center justify-center relative overflow-hidden" :style="'background:'+p.bg">
-                        <div class="absolute inset-0 opacity-10" style="background-image:linear-gradient(rgba(255,255,255,.15)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15)1px,transparent 1px);background-size:30px 30px"></div>
-                        <template x-if="p.image">
-                            <img :src="p.image" :alt="p.title_en" class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        </template>
-                        <span class="font-extrabold text-2xl tracking-wider text-white/80 relative z-10" style="font-family:'Syne',sans-serif" x-text="p.abbr"></span>
-                    </div>
-                    <div class="p-5 sm:p-6">
-                        <h3 class="font-bold text-base sm:text-lg mb-2"
-                            :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
-                            :class="isDark?'text-slate-100':'text-[#24344c]'"
-                            x-text="isAr ? p.title_ar : p.title_en"></h3>
-                        <p class="text-sm opacity-55 mb-4 leading-relaxed line-clamp-2" x-text="isAr ? p.desc_ar : p.desc_en"></p>
-                        <div class="flex flex-wrap gap-1.5 mb-4 sm:mb-5">
-                            <template x-for="tag in p.stack" :key="tag">
-                                <span class="text-xs px-2.5 py-1 rounded-full border font-medium opacity-75"
-                                      :class="isDark?'border-slate-600 text-slate-300':'border-[#24344c]/20 text-[#24344c]'" x-text="tag"></span>
-                            </template>
+        <div class="projects-swiper relative" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper">
+                <div class="swiper-wrapper" style="padding-bottom:8px">
+                    <template x-for="(p,i) in d.projects" :key="i">
+                        <div class="swiper-slide h-auto">
+                            <article class="proj-card h-full" :class="isDark?'glass-dark':'glass-light'">
+                                <div class="aspect-video flex items-center justify-center relative overflow-hidden" :style="'background:'+p.bg">
+                                    <div class="absolute inset-0 opacity-10" style="background-image:linear-gradient(rgba(255,255,255,.15)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15)1px,transparent 1px);background-size:30px 30px"></div>
+                                    <template x-if="p.image">
+                                        <img :src="p.image" :alt="p.title_en" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                    </template>
+                                    <span class="font-extrabold text-2xl tracking-wider text-white/80 relative z-10" style="font-family:'Syne',sans-serif" x-text="p.abbr"></span>
+                                </div>
+                                <div class="p-5 sm:p-6">
+                                    <h3 class="font-bold text-base sm:text-lg mb-2"
+                                        :style="isAr?'font-family:\'Cairo\',sans-serif':'font-family:\'Syne\',sans-serif'"
+                                        :class="isDark?'text-slate-100':'text-[#24344c]'"
+                                        x-text="isAr ? p.title_ar : p.title_en"></h3>
+                                    <p class="text-sm opacity-55 mb-4 leading-relaxed line-clamp-2" x-text="isAr ? p.desc_ar : p.desc_en"></p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4 sm:mb-5">
+                                        <template x-for="tag in p.stack" :key="tag">
+                                            <span class="text-xs px-2.5 py-1 rounded-full border font-medium opacity-75"
+                                                  :class="isDark?'border-slate-600 text-slate-300':'border-[#24344c]/20 text-[#24344c]'" x-text="tag"></span>
+                                        </template>
+                                    </div>
+                                    <div class="flex gap-4 sm:gap-5">
+                                        <a :href="p.live_url || '#'" class="text-xs font-semibold uppercase tracking-wide opacity-55 hover:opacity-100 flex items-center gap-1.5 transition-opacity">
+                                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round"/></svg>
+                                            <span>Live</span>
+                                        </a>
+                                        <a :href="p.code_url || '#'" class="text-xs font-semibold uppercase tracking-wide opacity-55 hover:opacity-100 flex items-center gap-1.5 transition-opacity">
+                                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
-                        <div class="flex gap-4 sm:gap-5">
-                            <a :href="p.live_url || '#'" class="text-xs font-semibold uppercase tracking-wide opacity-55 hover:opacity-100 flex items-center gap-1.5 transition-opacity">
-                                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round"/></svg>
-                                <span>Live</span>
-                            </a>
-                            <a :href="p.code_url || '#'" class="text-xs font-semibold uppercase tracking-wide opacity-55 hover:opacity-100 flex items-center gap-1.5 transition-opacity">
-                                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
-                                <span>Code</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            </template>
+                    </template>
+                </div>
+            </div>
+
+            <div class="swiper-button-prev proj-nav-btn" :class="isDark?'proj-nav-dark':'proj-nav-light'"></div>
+            <div class="swiper-button-next proj-nav-btn" :class="isDark?'proj-nav-dark':'proj-nav-light'"></div>
+            <div class="swiper-pagination mt-6"></div>
+        </div>
+
+        <div class="text-center mt-10 sm:hidden">
+            <a href="{{ route('projects.index') }}"
+               class="inline-block px-6 py-3 rounded-full bg-[#24344c] text-[#FFFDF5] font-semibold text-sm tracking-wide"
+               x-text="isAr ? 'عرض الكل' : 'View All Projects'"></a>
         </div>
     </div>
 </section>
@@ -424,8 +443,16 @@
             <div>
                 <p class="text-xs uppercase tracking-widest opacity-35 mb-0.5"
                    x-text="isAr ? (item.label_ar || '') : (item.label_en || '')"></p>
-                <p class="font-medium text-sm sm:text-base" :class="isDark?'text-slate-100':'text-[#24344c]'"
-                   x-text="isAr ? (item.value_ar || '') : (item.value_en || '')"></p>
+                <template x-if="contactLinkHref(item)">
+                    <a :href="contactLinkHref(item)"
+                       class="font-medium text-sm sm:text-base hover:underline"
+                       :class="isDark?'text-slate-100':'text-[#24344c]'"
+                       x-text="isAr ? (item.value_ar || '') : (item.value_en || '')"></a>
+                </template>
+                <template x-if="!contactLinkHref(item)">
+                    <p class="font-medium text-sm sm:text-base" :class="isDark?'text-slate-100':'text-[#24344c]'"
+                       x-text="isAr ? (item.value_ar || '') : (item.value_en || '')"></p>
+                </template>
             </div>
         </div>
     </div>
@@ -540,6 +567,7 @@ function jiljamApp() {
                 this.setupServiceCards();
                 this.setupSkillBars();
                 this.setupTilt();
+                this.setupProjectsSwiper();
             });
         },
 
@@ -627,6 +655,40 @@ function jiljamApp() {
             document.querySelectorAll('.skill-bar[data-pct]').forEach(b => {
                 b.style.width = '0';
                 obs.observe(b);
+            });
+        },
+
+        contactLinkHref(item) {
+            const val = (item.value_en || item.value_ar || '').trim();
+            if (!val) return null;
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return 'mailto:' + val;
+            const digits = val.replace(/[^\d+]/g, '');
+            if (/^\+?\d{7,15}$/.test(digits)) return 'tel:' + digits;
+            return null;
+        },
+
+        setupProjectsSwiper() {
+            if (!window.Swiper) return;
+            const el = document.querySelector('.projects-swiper .swiper');
+            if (!el || !this.d.projects || !this.d.projects.length) return;
+
+            new Swiper(el, {
+                slidesPerView: 1.05,
+                spaceBetween: 20,
+                grabCursor: true,
+                navigation: {
+                    nextEl: '.projects-swiper .swiper-button-next',
+                    prevEl: '.projects-swiper .swiper-button-prev',
+                },
+                pagination: {
+                    el: '.projects-swiper .swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    640:  { slidesPerView: 1.6, spaceBetween: 24 },
+                    900:  { slidesPerView: 2.3, spaceBetween: 24 },
+                    1280: { slidesPerView: 3, spaceBetween: 28 },
+                },
             });
         },
 

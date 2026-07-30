@@ -12,8 +12,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $settings['brand_name'] ?? '' }} — A precision-focused software engineering studio crafting scalable digital solutions.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url()->current() }}">
     <meta property="og:title" content="{{ $settings['brand_name'] ?? '' }} — Software Engineering Studio">
+    <meta property="og:description" content="{{ $settings['brand_name'] ?? '' }} — A precision-focused software engineering studio crafting scalable digital solutions.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
     <title>{{ $settings['brand_name'] ?? '' }} — Software Engineering Studio</title>
 
     <!-- 1. تجميع البيانات وتجهيزها (PHP Section) -->
@@ -122,6 +126,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -183,8 +188,17 @@
         html.ar-mode .svc-num{right:auto!important;left:20px!important;font-family:'Cairo',sans-serif}
         .spin-once{animation:spinIn 900ms cubic-bezier(0.22,1,0.36,1) both}
         .skill-bar{height:100%;border-radius:inherit;background:linear-gradient(to right,#3b82f6,#8b5cf6);transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
-        .proj-card{border-radius:16px;overflow:hidden;transition:transform 320ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 320ms ease;transform-style:preserve-3d;will-change:transform}
+        .proj-card{border-radius:16px;overflow:hidden;transition:transform 320ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 320ms ease;transform-style:preserve-3d;will-change:transform;display:flex;flex-direction:column}
         .proj-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 30px 70px rgba(0,0,0,.2)}
+        .projects-swiper .swiper{padding:6px 4px 44px}
+        .projects-swiper .swiper-slide{height:auto;display:flex}
+        .proj-nav-btn{width:42px;height:42px;border-radius:50%;top:42%;display:flex;align-items:center;justify-content:center}
+        .proj-nav-btn::after{font-size:15px}
+        .proj-nav-dark{background:rgba(36,52,76,.55);border:1px solid rgba(255,255,255,.12);color:#e2e8f0;backdrop-filter:blur(10px)}
+        .proj-nav-light{background:rgba(255,253,245,.85);border:1px solid rgba(36,52,76,.15);color:#24344c;backdrop-filter:blur(10px)}
+        .projects-swiper .swiper-pagination-bullet{background:currentColor;opacity:.35}
+        .projects-swiper .swiper-pagination-bullet-active{opacity:1;background:#3b82f6}
+        html.ar-mode .projects-swiper{direction:ltr}
         .contact-item{transition:transform 280ms ease,background 280ms ease;border-radius:14px}
         .contact-item:hover{transform:translateX(6px)}
         .ar-mode .contact-item:hover{transform:translateX(-6px)}
@@ -351,6 +365,7 @@ html.ar-mode .whatsapp-float{right:auto;left:20px}
 
     <!-- 6. السكربتات النهائية -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- التأكد من جاهزية Alpine قبل تشغيل أي شيء -->
     <script>

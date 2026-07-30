@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,11 +12,15 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Project::orderBy('sort_order')->get();
+        $projects = Project::with('category')->orderBy('sort_order')->get();
         return view('admin.projects.index', compact('projects'));
     }
 
-    public function create() { return view('admin.projects.form', ['project' => new Project]); }
+    public function create()
+    {
+        $categories = ProjectCategory::orderBy('sort_order')->get();
+        return view('admin.projects.form', ['project' => new Project, 'categories' => $categories]);
+    }
 
     public function store(Request $request)
     {
@@ -26,7 +31,11 @@ class ProjectsController extends Controller
         return redirect()->route('admin.projects.index')->with('success', 'Project created.');
     }
 
-    public function edit(Project $project) { return view('admin.projects.form', compact('project')); }
+    public function edit(Project $project)
+    {
+        $categories = ProjectCategory::orderBy('sort_order')->get();
+        return view('admin.projects.form', compact('project', 'categories'));
+    }
 
     public function update(Request $request, Project $project)
     {
@@ -63,6 +72,7 @@ class ProjectsController extends Controller
             'stack_raw'   => 'required|string',
             'bg_gradient' => 'required|string|max:200',
             'abbr'        => 'required|string|max:10',
+            'category_id' => 'nullable|exists:project_categories,id',
             'live_url'    => 'nullable|url|max:255',
             'code_url'    => 'nullable|url|max:255',
             'image'       => 'nullable|image|max:4096',

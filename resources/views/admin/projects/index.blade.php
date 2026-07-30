@@ -8,7 +8,11 @@
             <h1 class="font-display text-2xl font-800 text-slate-100">Portfolio Projects</h1>
             <p class="text-sm text-slate-500 mt-1">Showcase, reorder, and manage your technical build assignments.</p>
         </div>
-        <div>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('admin.projects.categories.index') }}" class="btn btn-ghost">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+                Categories
+            </a>
             <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="mr-2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 Add Project
@@ -31,6 +35,7 @@
                     <tr class="bg-surface2/50 border-b border-border text-slate-400 text-xs font-700 uppercase tracking-wider">
                         <th class="p-4 w-20 text-center">Order</th>
                         <th class="p-4">Project Preview & Title</th>
+                        <th class="p-4 w-40">Category</th>
                         <th class="p-4 w-32">Abbreviation</th>
                         <th class="p-4 w-32 text-center">Status</th>
                         <th class="p-4 w-32 text-right">Actions</th>
@@ -59,6 +64,15 @@
                                         <div class="text-xs text-slate-500 truncate mt-0.5" dir="rtl">{{ $project->title_ar }}</div>
                                     </div>
                                 </div>
+                            </td>
+
+                            {{-- التصنيف --}}
+                            <td class="p-4">
+                                @if($project->category)
+                                    <span class="badge badge-blue">{{ $project->category->name_en }}</span>
+                                @else
+                                    <span class="text-xs text-slate-500">—</span>
+                                @endif
                             </td>
 
                             {{-- الاختصار --}}
@@ -92,7 +106,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-12 text-center text-slate-500 italic tracking-wide bg-surface/10">
+                            <td colspan="6" class="p-12 text-center text-slate-500 italic tracking-wide bg-surface/10">
                                 No portfolio projects discovered within database cluster pipelines.
                             </td>
                         </tr>

@@ -80,39 +80,39 @@
                 <div class="form-grid">
                     <div class="field">
                         <label class="label">Badge EN</label>
-                        <input type="text" name="badge_en" class="input" value="{{ old('badge_en', $contact->badge_en) }}" required>
+                        <input type="text" name="badge_en" class="input input-lg" value="{{ old('badge_en', $contact->badge_en) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">Badge AR</label>
-                        <input type="text" name="badge_ar" class="input" value="{{ old('badge_ar', $contact->badge_ar) }}" required>
+                        <input type="text" name="badge_ar" class="input input-lg" value="{{ old('badge_ar', $contact->badge_ar) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">Heading EN</label>
-                        <input type="text" name="heading_en" class="input" value="{{ old('heading_en', $contact->heading_en) }}" required>
+                        <input type="text" name="heading_en" class="input input-lg" value="{{ old('heading_en', $contact->heading_en) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">Heading AR</label>
-                        <input type="text" name="heading_ar" class="input" value="{{ old('heading_ar', $contact->heading_ar) }}" required>
+                        <input type="text" name="heading_ar" class="input input-lg" value="{{ old('heading_ar', $contact->heading_ar) }}" required>
                     </div>
-                    <div class="field">
+                    <div class="field" style="grid-column: 1/-1">
                         <label class="label">Description EN</label>
-                        <textarea name="desc_en" class="input" rows="3" required>{{ old('desc_en', $contact->desc_en) }}</textarea>
+                        <textarea name="desc_en" class="input input-lg" rows="6" required>{{ old('desc_en', $contact->desc_en) }}</textarea>
                     </div>
-                    <div class="field">
+                    <div class="field" style="grid-column: 1/-1">
                         <label class="label">Description AR</label>
-                        <textarea name="desc_ar" class="input" rows="3" required>{{ old('desc_ar', $contact->desc_ar) }}</textarea>
+                        <textarea name="desc_ar" class="input input-lg" rows="6" required>{{ old('desc_ar', $contact->desc_ar) }}</textarea>
                     </div>
                     <div class="field">
                         <label class="label">CTA Button EN</label>
-                        <input type="text" name="cta_en" class="input" value="{{ old('cta_en', $contact->cta_en) }}" required>
+                        <input type="text" name="cta_en" class="input input-lg" value="{{ old('cta_en', $contact->cta_en) }}" required>
                     </div>
                     <div class="field">
                         <label class="label">CTA Button AR</label>
-                        <input type="text" name="cta_ar" class="input" value="{{ old('cta_ar', $contact->cta_ar) }}" required>
+                        <input type="text" name="cta_ar" class="input input-lg" value="{{ old('cta_ar', $contact->cta_ar) }}" required>
                     </div>
                     <div class="field" style="grid-column: 1/-1">
                         <label class="label">CTA Email Address</label>
-                        <input type="email" name="cta_email" class="input" value="{{ old('cta_email', $contact->cta_email) }}" required>
+                        <input type="email" name="cta_email" class="input input-lg" value="{{ old('cta_email', $contact->cta_email) }}" required>
                     </div>
                 </div>
 
@@ -192,11 +192,11 @@
                         </div>
                         <div class="field">
                             <label class="label">Value EN</label>
-                            <input type="text" name="value_en" class="input" placeholder="hello@example.com" required>
+                            <input type="text" name="value_en" class="input input-lg" placeholder="hello@example.com or +962771511605" required>
                         </div>
                         <div class="field">
                             <label class="label">Value AR</label>
-                            <input type="text" name="value_ar" class="input" placeholder="hello@example.com" required>
+                            <input type="text" name="value_ar" class="input input-lg" placeholder="hello@example.com or +962771511605" required>
                         </div>
                     </div>
 
@@ -304,12 +304,12 @@
 
                         <div class="field">
                             <label class="label">Value EN</label>
-                            <input type="text" name="value_en" class="input" value="{{ $item->value_en }}" required>
+                            <input type="text" name="value_en" class="input input-lg" value="{{ $item->value_en }}" required>
                         </div>
 
                         <div class="field">
                             <label class="label">Value AR</label>
-                            <input type="text" name="value_ar" class="input" value="{{ $item->value_ar }}" required>
+                            <input type="text" name="value_ar" class="input input-lg" value="{{ $item->value_ar }}" required>
                         </div>
                     </div>
 

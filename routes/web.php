@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProjectsPageController;
 use App\Http\Controllers\Admin\{
     DashboardController, SettingsController,
-    ServicesController, ProjectsController,
+    ServicesController, ProjectsController, ProjectCategoriesController,
     TechnologiesController, ContentController
 };
 
 // ── Public Site ────────────────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/projects', [ProjectsPageController::class, 'index'])->name('projects.index');
 
 // ── Auth (Breeze/built-in) ─────────────────────────────────────────────
 
@@ -43,6 +45,12 @@ Route::prefix('admin')
         Route::put('projects/{project}',      [ProjectsController::class, 'update'])->name('projects.update');
         Route::delete('projects/{project}',   [ProjectsController::class, 'destroy'])->name('projects.destroy');
         Route::post('projects/reorder',       [ProjectsController::class, 'reorder'])->name('projects.reorder');
+
+        // Project Categories
+        Route::get('projects/categories',           [ProjectCategoriesController::class, 'index'])->name('projects.categories.index');
+        Route::post('projects/categories',          [ProjectCategoriesController::class, 'store'])->name('projects.categories.store');
+        Route::put('projects/categories/{category}', [ProjectCategoriesController::class, 'update'])->name('projects.categories.update');
+        Route::delete('projects/categories/{category}', [ProjectCategoriesController::class, 'destroy'])->name('projects.categories.destroy');
 
         // Technologies — Rings
         Route::get('technologies',                [TechnologiesController::class, 'index'])->name('technologies.index');
